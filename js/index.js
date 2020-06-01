@@ -34,6 +34,7 @@ window.onload = function(){
             p2.appendChild(btn);
             div.appendChild(p2);
             btn.addEventListener('click',fetchUserRepo);
+            repoList.innerHTML="";
             btn.user = user.login;
           
             lis.appendChild(div);
@@ -60,17 +61,17 @@ window.onload = function(){
         })
 
         .then(function(json){
+           
             repoEndPoint(json);
         })
     }
     //appending second fetch data to the DOM
+    let repoList = document.querySelector('#repos-list');
     function repoEndPoint(data){
-    let ul = document.querySelector('#repos-list');
-    ul.innerHTML="";
         for(const repo of data){
             let lis = document.createElement('li');
             lis.innerHTML = repo.name;
-            ul.appendChild(lis);
+            repoList.appendChild(lis);
         }
     }
 }
