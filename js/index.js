@@ -15,6 +15,7 @@ window.addEventListener('load', () => {
             .then((response) => response.json())
             .then((object) => {
                 userList.innerHTML = ''
+                repoList.innerHTML = ''
                 iterateOver(object.items)
             })
     }
@@ -52,7 +53,7 @@ window.addEventListener('load', () => {
             userLi.appendChild(userDiv)
             userList.appendChild(userLi)
 
-            btnClick(showRepoBtn)
+            btnClick(showRepoBtn, element.login)
         }
     }
 
@@ -71,11 +72,11 @@ window.addEventListener('load', () => {
         }
     }
 
-    function btnClick (btn) {
+    function btnClick(btn, login) {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             repoList.innerHTML = ''
-            fetchUserRepos(element.login);
+            fetchUserRepos(login);
         })
     }
 
