@@ -12,6 +12,8 @@ window.addEventListener('load', () => {
             .then((response) => response.json())
             .then((object) => {
 
+                userList.innerHTML = ''
+
                 for (element of object.items) {
 
                     let userLi = document.createElement('li')
@@ -52,12 +54,11 @@ function fetchUserRepos(login) {
     fetch(`https://api.github.com/users/${login}/repos`)
         .then((response) => response.json())
         .then((object) => {
-            let repoList = document.querySelector('#repos-list')
+        let repoList = document.querySelector('#repos-list')
 
 
             for (element of object) {
-                console.log(element.html_url)
-
+                
                 let repoLi = document.createElement('li')
                 let repoLink = document.createElement('a')
 
