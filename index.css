@@ -23,3 +23,7 @@ ul {
   justify-content: center;
   align-items: center;
 }
+
+.toggle-btn {
+  margin-bottom: 25px;
+}

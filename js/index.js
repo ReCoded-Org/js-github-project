@@ -4,6 +4,18 @@ window.addEventListener('load', () => {
     let inputText = document.querySelector('#search')
     let userList = document.querySelector('#user-list')
     let repoList = document.querySelector('#repos-list')
+    let toggleBtn = document.querySelector('#toggle-btn')
+    let searchUsers = true;
+
+    toggleBtn.addEventListener('click', () => {
+        if (searchUsers) {
+            toggleBtn.innerText = 'search for repos'
+            searchUsers = false;
+        } else {
+            toggleBtn.innerText = 'search for users'
+            searchUsers = true;
+        }
+    })
 
     let configObj = {
         headers: {
@@ -13,15 +25,32 @@ window.addEventListener('load', () => {
 
     submitBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        fetchUsers(inputText.value)
+        if (searchUsers) {
+            fetchUsers(inputText.value)
+        } else {
+            fetchRepos(inputText.value)
+        }
     })
+
+    function resetDom() {
+        userList.innerHTML = ''
+        repoList.innerHTML = ''
+    }
+
+    function fetchRepos(repo) {
+        fetch(`https://api.github.com/search/repositories?q=${repo}`)
+            .then((response) => response.json())
+            .then((object) => {
+                resetDom();
+                iterateOverRepos(object.items)
+            })
+    }
 
     function fetchUsers(userName) {
         fetch(`https://api.github.com/search/users?q=${userName}`, configObj)
             .then((response) => response.json())
             .then((object) => {
-                userList.innerHTML = ''
-                repoList.innerHTML = ''
+                resetDom();
                 iterateOver(object.items)
             })
     }
