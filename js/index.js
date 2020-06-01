@@ -5,13 +5,19 @@ window.addEventListener('load', () => {
     let userList = document.querySelector('#user-list')
     let repoList = document.querySelector('#repos-list')
 
+    let configObj = {
+        headers: {
+            'Accept': 'application/vnd.github.v3+json'
+        }
+    }
+
     submitBtn.addEventListener('click', (e) => {
         e.preventDefault();
         fetchUsers(inputText.value)
     })
 
     function fetchUsers(userName) {
-        fetch(`https://api.github.com/search/users?q=${userName}`)
+        fetch(`https://api.github.com/search/users?q=${userName}`, configObj)
             .then((response) => response.json())
             .then((object) => {
                 userList.innerHTML = ''
@@ -21,7 +27,7 @@ window.addEventListener('load', () => {
     }
 
     function fetchUserRepos(login) {
-        fetch(`https://api.github.com/users/${login}/repos`)
+        fetch(`https://api.github.com/users/${login}/repos`, configObj)
             .then((response) => response.json())
             .then((object) => {
                 iterateOverRepos(object);
