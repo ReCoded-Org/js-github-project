@@ -1,5 +1,4 @@
 # GitHub Search App
-A html and css project
 
 ## GitHub API
 
